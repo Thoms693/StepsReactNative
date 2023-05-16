@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, FlatList, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, FlatList, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
 
-// Différents composants
 export default function App() {
-  const [text, onChangeText] = useState('');
+  // Diff composant et decla des états
+  const [text, setText] = useState('');
   const [goals, setGoals] = useState([
     "Faire les courses",
     "Aller à la salle de sport 3 fois par semaine",
@@ -17,53 +17,56 @@ export default function App() {
     "Organiser un meetup autour de la tech",
     "Faire un triathlon",
   ]);
-  //ajt un nouvel objectif a la liste
+
+  // ajt un nouvel objectif a la liste
   const addGoal = () => {
     if (text !== '') {
       setGoals([...goals, text]);
-      onChangeText('');
+      setText('');
     }
   };
-//suppr objectif a la liste
+
+  // suppr objectif a la liste
   const removeGoal = (indexToRemove) => {
     setGoals(goals.filter((goal, index) => index !== indexToRemove));
   };
 
-//J'affiche les objectifs
+  // j'affiche un objectif de la liste
   const renderGoalItem = ({ item, index }) => (
       <View style={styles.goalItemContainer}>
         <Text style={styles.goalItem}>{item}</Text>
         <TouchableOpacity onPress={() => removeGoal(index)}>
-          <Text style={styles.goalItemDeleteIcon}>x</Text></TouchableOpacity>
+          <Text style={styles.goalItemDeleteIcon}>x</Text>
+        </TouchableOpacity>
       </View>
   );
 
-  const image = require('C:/Users/thoma/OneDrive - ORT LYON/Documents/React Native/AwesomeProject/assets/wp6476345.png');
-
-
-  // J'affiche l'application titre, alert..
+  // j'affiche l'appli titre , fond decran , alert
   return (
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+      <ImageBackground source={require('./assets/wp6476345.png')} resizeMode="cover" style={styles.image}>
         <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>App de Thooms</Text>
-        <TouchableHighlight style={styles.appInfoButton} onPress={() => alert('Copyright by Rodriguez Thomas')}>
-          <Text style={styles.appInfoButtonText}>Infos App</Text></TouchableHighlight>
-        <View style={styles.inputContainer}>
-          <TextInput
-              style={styles.input}
-              onChangeText={onChangeText}
-              value={text}
-              placeholder="Ajouter un objectif"
-              placeholderTextColor="white"
+          <Text style={styles.title}>App de Thomas</Text>
+          <TouchableOpacity style={styles.appInfoButton} onPress={() => alert('Copyright by Rodriguez Thomas')}>
+            <Text style={styles.appInfoButtonText}>Infos App</Text>
+          </TouchableOpacity>
+          <View style={styles.inputContainer}>
+            <TextInput
+                style={styles.input}
+                onChangeText={setText}
+                value={text}
+                placeholder="Ajouter un objectif"
+                placeholderTextColor="white"
+            />
+            <TouchableOpacity style={styles.addButton} onPress={addGoal}>
+              <Text style={styles.addButtonText}>Add</Text>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+              style={styles.list}
+              data={goals}
+              renderItem={renderGoalItem}
+              keyExtractor={(item, index) => index.toString()}
           />
-          <TouchableHighlight style={styles.addButton} onPress={addGoal}>
-            <Text style={styles.addButtonText}>Add</Text></TouchableHighlight>
-        </View>
-        <FlatList
-            style={styles.list}
-            data={goals}
-            renderItem={renderGoalItem}
-            keyExtractor={(item, index) => index.toString()}/>
           <StatusBar style="auto" />
         </SafeAreaView>
       </ImageBackground>
@@ -80,12 +83,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    color:'white'
+    color: 'white'
   },
   appInfoButton: {
     backgroundColor: 'red',
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     marginBottom: 10,
   },
   appInfoButtonText: {
@@ -95,7 +98,6 @@ const styles = StyleSheet.create({
   list: {
     width: '100%',
   },
-
   goalItemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -108,17 +110,16 @@ const styles = StyleSheet.create({
   goalItem: {
     color: 'white',
     fontWeight: 'bold',
-
   },
   goalItemDeleteIcon: {
     color: 'red'
   },
-    addButton: {
+  addButton: {
     backgroundColor: 'red',
     paddingVertical: 10,
-    paddingHorizontal: 40,
+    paddingHorizontal: 15,
     marginTop: 5,
-      marginLeft: 10,
+    marginLeft: 10,
   },
   addButtonText: {
     color: 'white',
@@ -128,14 +129,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  input : {
+  input: {
     borderWidth: 4,
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 5,
     marginLeft: 10,
     borderColor: "white",
-
   },
   image: {
     flex: 1,
