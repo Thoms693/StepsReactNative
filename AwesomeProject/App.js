@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, FlatList, Modal, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { ImageBackground, FlatList, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { useState } from 'react';
 
 // Différents composants
 export default function App() {
   const [text, onChangeText] = useState('');
-  const [showModal, setShowModal] = useState(false);
   const [goals, setGoals] = useState([
     "Faire les courses",
     "Aller à la salle de sport 3 fois par semaine",
@@ -35,8 +34,7 @@ export default function App() {
       <View style={styles.goalItemContainer}>
         <Text style={styles.goalItem}>{item}</Text>
         <TouchableOpacity onPress={() => removeGoal(index)}>
-          <Text style={styles.goalItemDeleteIcon}>x</Text>
-        </TouchableOpacity>
+          <Text style={styles.goalItemDeleteIcon}>x</Text></TouchableOpacity>
       </View>
   );
 
@@ -47,27 +45,25 @@ export default function App() {
   return (
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <SafeAreaView style={styles.container}>
-          <Text style={styles.title}>App de Thoms</Text>
+          <Text style={styles.title}>App de Thooms</Text>
         <TouchableHighlight style={styles.appInfoButton} onPress={() => alert('Copyright by Rodriguez Thomas')}>
-          <Text style={styles.appInfoButtonText}>Infos App</Text>
-        </TouchableHighlight>
+          <Text style={styles.appInfoButtonText}>Infos App</Text></TouchableHighlight>
         <View style={styles.inputContainer}>
           <TextInput
               style={styles.input}
               onChangeText={onChangeText}
               value={text}
               placeholder="Ajouter un objectif"
+              placeholderTextColor="white"
           />
           <TouchableHighlight style={styles.addButton} onPress={addGoal}>
-            <Text style={styles.addButtonText}>Add</Text>
-          </TouchableHighlight>
+            <Text style={styles.addButtonText}>Add</Text></TouchableHighlight>
         </View>
         <FlatList
             style={styles.list}
             data={goals}
             renderItem={renderGoalItem}
-            keyExtractor={(item, index) => index.toString()}
-        />
+            keyExtractor={(item, index) => index.toString()}/>
           <StatusBar style="auto" />
         </SafeAreaView>
       </ImageBackground>
@@ -84,9 +80,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color:'white'
   },
   appInfoButton: {
-    backgroundColor: 'blue',
+    backgroundColor: 'red',
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginBottom: 10,
@@ -106,13 +103,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: '#cccc',
+  },
+  goalItem: {
+    color: 'white',
+    fontWeight: 'bold',
+
   },
   goalItemDeleteIcon: {
     color: 'red'
   },
     addButton: {
-    backgroundColor: 'black',
+    backgroundColor: 'red',
     paddingVertical: 10,
     paddingHorizontal: 40,
     marginTop: 5,
@@ -132,11 +134,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 5,
     marginLeft: 10,
-    borderColor: "black",
+    borderColor: "white",
+
   },
   image: {
     flex: 1,
     justifyContent: 'center',
-    opacity: 0.5,
+    opacity: 1,
   },
 });
